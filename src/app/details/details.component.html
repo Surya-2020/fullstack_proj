@@ -1,0 +1,136 @@
+<article>
+    <img class="listing-photo" [src]="housingLocation?.photo">
+    <section class="listing-description">
+        <h2 class="listing-heading"> {{housingLocation?.name}}</h2>
+        <p class="listing-location">{{housingLocation?.city}} , {{housingLocation?.state}}</p>
+    </section>
+    <section class="listing-features">
+        <h2 class="section-heading">About this housing location -->></h2>
+        <ul>
+            <li>Units Available : {{housingLocation?.availableUnits}}</li>
+            <li>Does this location has wifi : {{housingLocation?.wifi}}</li>
+            <li>Does this location has laundry : {{housingLocation?.laundry}}</li>
+        </ul>
+    </section>
+    <section class="listing-apply">
+        <h2 class="section-heading">Apply now to live here!!!</h2>
+        <form [formGroup]="applyForm" (submit)="submitApplication()">
+            <label for="first-name">First Name</label>
+            <input id="first-name" type="text" formControlName="firstName">
+
+            <label for="last-name">Last Name</label>
+            <input id="last-name" type="text" formControlName="lastName">
+
+            <label for="email">Email</label>
+            <input id="email" type="text" formControlName="email">
+            <button type="submit" class="primary">Apply Now</button>
+        </form>
+    </section>
+    <!--  <section>
+             <tbody>
+            <tr *ngFor="let info of personalInfoList2">
+                <td>
+                    {{info.id}}
+                </td>
+                <td>
+                    {{info.name}}
+                </td>
+                <td>
+                    {{info.dob}}
+                </td>
+                <td>
+                    {{info.techStack}}
+                </td>
+            </tr>
+
+        </tbody>
+
+
+        <button class="primary" type="button" (click)="getAllPersonalInfos()">Get PersonalInfos</button>
+        <ul>
+            <li *ngFor="let infos of personalInfoList | async">
+
+                <strong>{{infos.id}}</strong>
+                <strong>{{infos.name}}</strong>
+                <strong>{{infos.dob}}</strong>
+                <strong> {{infos.techStack}}</strong>
+            </li>
+        </ul>
+    </section>
+    -->
+    <section>
+        <h2 class="section-heading">**Add Personal Infos**</h2>
+        <form (ngSubmit)="addPersonalInfo()">
+            <label>Id</label>
+            <input [(ngModel)]="newPersonalInfo.personId" name="id" required />
+            <label>Name</label>
+            <input [(ngModel)]="newPersonalInfo.name" name="name" required />
+            <label>Date Of Birth</label>
+            <input [(ngModel)]="newPersonalInfo.dob" name="dob" required />
+            <label>Tech Stack</label>
+            <input [(ngModel)]="newPersonalInfo.techStack" name="techStack" required />
+            <button type="submit" class="primary">Add PersonalInfos</button>
+        </form>
+
+        @if(addMessage){
+        <p>{{addMessage}}</p>
+        }
+
+    </section>
+    <section>
+        <h2 class="section-heading">Get All Personal Information</h2>
+        <table>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>Name</th>
+                <th>
+                    Date of Birth
+                </th>
+                <th>
+                    Tech Stack
+                </th>
+            </tr>
+            <!-- <tr *ngFor="let info of personalInfoList | async">
+                <td>
+                    {{info?.id ?? 0}}
+                </td>
+                <td>
+                    {{info?.name ?? "Unknown"}}
+                </td>
+                <td>
+                    {{info?.dob?? "N/A"}}
+                </td>
+                <td>
+                    {{info?.techStack ??"N/A"}}
+                </td>
+            </tr> -->
+            <ng-container *ngFor="let info of personalInfoList | async">
+                <tr *ngIf="isValid(info)">
+                    <td>
+                        {{info.personId}}
+                    </td>
+                    <td>
+                        {{info.name}}
+                    </td>
+                    <td>
+                        {{info.dob}}
+                    </td>
+                    <td>
+                        {{info.techStack}}
+                    </td>
+                </tr>
+            </ng-container>
+        </table>
+        <!-- <ul>
+            <li *ngFor="let infos of personalInfoList | async">
+
+                <strong>{{infos.id}}</strong>
+                <strong>{{infos.name}}</strong>
+                <strong>{{infos.dob}}</strong>
+                <strong> {{infos.techStack}}</strong>
+            </li>
+        </ul> -->
+    </section>
+</article>

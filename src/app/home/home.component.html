@@ -1,0 +1,13 @@
+<section>
+    <form>
+        <input type="text" placeholder="filter by city">
+        <button class="primary" type="button">Search</button>
+    </form>
+</section>
+<section class="results">
+    @for(housingLocations of housingLocationList; track housingLocations.id ){
+    <app-housinglocation [housingLocation]="housingLocations"></app-housinglocation>
+    }
+
+
+</section>
